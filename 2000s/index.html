@@ -1,45 +1,342 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>TIME TRAVELER | 2000s</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Designing Friction-2000s</title>
+    <style>
+        body {
+			background: url('assets/windows\ bacdground.jpg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Tahoma', sans-serif;
+            margin: 0;
+            height: 100vh;
+        }
 
-	<link rel="stylesheet" href="style.css">
+        #popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            background: rgb(241, 241, 241);
+            border: 2px solid black;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 5px 5px 3px rgb(77, 77, 77);
+            z-index: 1000;
+        }
+		.popup-bar {
+			background: blue;
+			color: white;
+			padding: 3px;
+			font-size: 14px;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			cursor: move;
+			user-select: none;
+		}
+
+        #popup button {
+            margin-top: 10px;
+            padding: 5px 15px;
+            border: none;
+            background: blue;
+            color: white;
+            cursor: pointer;
+            font-family: 'Tahoma', sans-serif;
+            font-size: 14px;
+        }
+
+        .window {
+            position: absolute;
+            top: 100px;
+            left: 100px;
+            width: 700px;
+            max-height: 80vh;
+            background: white;
+            border: 2px solid #000;
+            box-shadow: 5px 5px 5px gray;
+            display: none;
+            z-index: 100;
+        }
+
+        .title-bar {
+            background: rgb(0, 80, 160);
+            color: white;
+            padding: 5px 8px;
+            font-size: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: move;
+            user-select: none;
+        }
+
+        .title-bar button {
+            background: #FF3B3B;
+            color: white;
+            border: none;
+            padding: 2px 8px;
+            cursor: pointer;
+            font-family: 'Tahoma', sans-serif;
+            font-weight: bold;
+        }
+
+        .title-bar button:hover {
+            background: white;
+        }
+
+        .nav {
+            display: flex;
+            background: #bbbbbb;
+            border-bottom: 2px solid #000;
+            padding: 2px 2px 0 2px;
+        }
+
+        .nav button {
+            flex: 2;
+            padding: 8px;
+            border: 2px solid black;
+            border-bottom: none;
+            background: rgb(225, 225, 225);
+            cursor: pointer;
+            font-family: 'Tahoma', sans-serif;
+            font-size: 12px;
+            margin-right: 2px;
+        }
+
+        .nav button:last-child {
+            margin-right: 0;
+        }
+
+        .nav button:hover {
+            background:#ff0000;
+        }
+
+        .nav button.active {
+            background: white;
+            font-weight: bold;
+            border-bottom: 1px solid white;
+            margin-bottom: -1px;
+        }
+
+        .content-container {
+            padding: 20px;
+            overflow-y: auto;
+            max-height: 60vh;
+            line-height: 1.5;
+        }
+
+        .content {
+            display: none;
+        }
+
+        .content.active {
+            display: block;
+        }
+
+        h3 {
+            color: #0078D7;
+            margin-top: 0;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 5px;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        .separator {
+            height: 1px;
+            background: #ccc;
+            margin: 20px 0;
+        }
+
+        .desktop-icon {
+            position: absolute;
+            width: 80px;
+            text-align: center;
+            color: white;
+            text-shadow: 1px 1px 1px black;
+            font-size: 12px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .desktop-icon img {
+            width: 60px;
+            height: 60px;
+            display: block;
+            margin: 0 auto 5px auto;
+        }
+
+
+    </style>
 </head>
 <body>
-	<nav>
-		<a href="../">Home</a>
-		<a href="../1990s">1990s</a>
-		<a href="./">2000s</a>
-		<a href="../2010s">2010s</a>
-		<a href="" target="_blank">Original article</a>
-		<a href="https://github.com/gabrieldrozdov/time-traveler" target="_blank">GitHub repository (update with your repository)</a>
-	</nav>
 
-	<h1>Welcome to the 2000s!</h1>
+    <div class="desktop-icon" style="top: 20px; left: 20px;" onclick="openWindow()">
+        <img src="assets/desktop icon.png" alt="desktop Icon">
+        Designing Friction
+    </div>
 
-	<p>
-		Welcome to an era of the Internet defined by sites with web-safe fonts and colors, ridiculous layouts, and images that act as buttons. It’s the era of <a href="https://en.wikipedia.org/wiki/GeoCities" target="_blank">GeoCities</a>. It’s the wild west.
-	</p>
+	<div id="popup">
+		<div class="popup-bar">
+			<span>Request</span>
+		</div>
+		<p>Let's read <i>Designing Friction</i>!</p>
+		<button onclick="openWindow()"><b>OK!</b></button>
+	</div>	
 
-	<img src="assets/cowboy.gif" width="400">
+	<div id="mainWindow" class="window">
+        <div class="title-bar" id="windowTitleBar">
+            <span>Designing Friction</span>
+            <button onclick="closeWindow()">X</button>
+        </div>
 
-	<p>
-		So, we can finally start styling websites using CSS. This means we can style <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_text" target="_blank">text</a>. We can also make use of the <a href="https://www.w3schools.com/css/css_boxmodel.asp">box model</a> for all elements. And we can even break the flow of a site using <a href="https://css-tricks.com/absolute-positioning-inside-relative-positioning/" target="_blank">absolute positioning</a>.
-	</p>
+        <div class="nav">
+			<button class="tab active" onclick="showContent('welcome')">Welcome</button>
+            <button class="tab" onclick="showContent('intro')">Introduction</button>
+            <button class="tab" onclick="showContent('friction')">What is Friction?</button>
+            <button class="tab" onclick="showContent('proposal')">Proposal</button>
+            <button class="tab" onclick="showContent('ideas')">Designing Friction Ideas</button>
+            <button class="tab" onclick="showContent('authors')">About the Authors</button>
+        </div>
 
-	<p>
-		<a href="https://jgthms.com/web-design-in-4-minutes/">Follow this guide</a> to learn how to create a “pleasing” web layout evocative of this era.
-	</p>
+		<div class="content-container">
+			<div id="welcome" class="content active">
+				<p><img src="assets/welcome.gif" alt="welcome" style="margin: auto;"></p>
+				<p><img src="assets/glitter.gif" alt="glitter"style="display: block; margin-left: auto;"></p>
+			</div>
 
-	<h2>Examples of sites that are evocative this era:</h2>
-	<ul>
-		<li><a href="https://geocities.restorativland.org/" target="_blank">The Geocities Gallery</a></li>
-		<li><a href="https://www.theverge.com/c/24247055/2004-tech-internet-gadgets-phones-pop-culture" target="_blank">2004 was the first year of the future</a></li>
-		<li><a href="https://www.cbpm.org/" target="_blank">The Collective Black People Movement</a></li>
-		<li><a href="https://luckysoap.com/statements/handmadeweb.html" target="_blank">A Handmade Web</a></li>
-		<li><a href="https://web.archive.org/web/20060301000255/http://www.apple.com/" target="_blank">apple.com from 2006</a></li>
-	</ul>
+            <div id="intro" class="content">
+                <h3>Introduction</h3>
+				<p>As designers, entrepreneurs and architects of digital culture we feel the urge to refocus how we deal with our digital futures. Designing Friction is a proposal to change the way we think when producing or interacting with digital technology.</p>
+				<p><img src="assets/intro.gif" alt="intro" style="width: 500px;"></p>
+			</div>
+
+            <div id="friction" class="content">
+                <h3>What is Friction?</h3>
+				<p>Friction is resistance. It derives from physical interaction between humans, and humans and things – its reach is holistic. All senses, elements and emotions play a role: sight, sound, smell, taste, touch, air, earth, temperature, agitation, passion, joy, sadness... With movement comes friction. The more we move and act, the more friction we encounter. The more friction there is, the more we engage and care. Friction drives our engagement. Friction, in this context, is not synonymous with either anger or conflict, nor is it malfunctioning technology. Friction is an essential ingredient that makes up our humanness and sparks human connection. Friction is a lively, intrinsic experience.				</p>
+				
+				<h4>Loss of Friction</h4>
+				<p>Digital technology has long pursued the goal of eliminating friction, striving for seamlessness. We now navigate a sea of frictionless experiences. (With the possible exception of two factor authentication.)&#128522</p>                
+                
+				<h4><i>Function and form are detached</i></h4>
+                <p>Digital technology goes hand-in-hand with the loss of physical resistance. Philosopher Haroon Sheikh explains that digital technology turns our interactions with things into interactions with devices. A thing is split into its object, or form, and its function. A device is the same object for each function. It's your purse, your musical instrument and your letterbox, each of which now demands the same bodily action.</p>
+                
+                <h4><i>Removing physical human interaction</i></h4>
+                <p>Instead of using our whole hand to interact, we now often use our fingertips to swipe screens or interact with air. Each new app or innovation replaces a previously friction-laden human interaction process, David Byrne states. Transactions with machines are perceived to be smoother than interactions with fellow humans.</p>
+                
+                <h4><i>Convenience and immediacy</i></h4>
+                <p>Everything can be effortlessly and immediately accessed from behind our screens. We stay home due to home-delivery, dating apps, online classes and endless on-demand entertainment. We are facing 'death by convenience'. In such a reality, movement is trimmed down to a minimum.</p>
+                
+                <h4><i>Predictability</i></h4>
+                <p>In this reality, data is king. In creating convenience, all our actions are recorded and translated into data, rendering them readable and predictable. The better the data, the better the predictability. Unpredictability, human messiness and unforeseen actions are all friction, and counter this goal. Predictable futures can be controlled.</p>
+                
+                <h4><i>Loss of autonomy</i></h4>
+                <p>Keeping friction out maintains a fragile equilibrium. Enter AI — technology becomes omnipresent, and evolves from being a tool, to being a companion with humanlike appeal. We are on the verge of committing our emotions to AI, plunging into an emotional dependency. AI indulges us, consumes us. Its appeal gives us the comforts and conveniences we learn to seek. To get satisfaction from interaction with a model, you need to perform your predictable self. It becomes almost impossible to step out, to live frictionfully. Our autonomy is at stake.</p>
+                <p>Philosopher Miriam Rasch argues that complete removal of friction means standing still. A completely predictable future is no future, but a continuous present. In a world where even our deepest desires can be foreseen, where we have lost our autonomy, we long for what remains beyond the domain of data, algorithms and databases and AI.</p>
+    		</div>
+
+            <div id="proposal" class="content">
+                <h3>Proposal</h3>
+				<p>A world headed for a frictionless reality begs the question: how can we create a desirable future with digital technology? How can we access, develop and relate to it? We like to see designing friction as a fundamental design principle when working with digital culture. Instead of following design ethics that strive to eliminate friction, we suggest to not only allow, but embrace friction. To facilitate it: design [products with] digital technology in a way that makes space for our humanness. Here friction is a core ingredient. Digital technology should create environments and situations in which we can truly connect with each other, as well as with the unknown, the uncontrolled, with all senses, all elements, all emotions. It should create situations that are not predicted, measured and calculated beforehand; situations that result from and amount to the present moment.				</p>
+			</div>
+
+            <div id="ideas" class="content">
+                <h3>Ideas on Designing Friction</h3>
+                <p><b>Here are some ideas on what 'designing friction' might entail.</b></p>
+                
+                <h4><i>Discomfort</i></h4>
+                <p>Embrace uncomfortable situations. In uncomfortable environments we can discover the richness and breadth of friction. Uncomfortable situations help you to feel structures you are not adjusted to, you can learn and discover. With friction we get immersed, we get creative, we get alive. Discomfort allows us to experience boundaries both physically and mentally (these are necessary and productive). Designing friction is exploring boundaries.</p>
+                
+                <h4><i>Time delay</i></h4>
+                <p>Friction makes things slower and that is okay! The fastest response might not be the best one to design for. Instant gratification is what digital technology currently optimizes for. This results in the loss of desire, waiting and boredom. Avoiding boredom makes us pick up a device as soon as we have nothing to do. Being bored lets you start new fascinations. Boredom gets us into productive flow. When friction acts to slow things down it allows us to step into the now. Designing friction is fuelling longing and desire; it allows boredom and allows for a slower pace.</p>
+                
+                <h4><i>Engage the body</i></h4>
+                <p>When interacting with screens we lack resistance. Swiping screens makes our world more superficial. Human life gains depth when having thing-relations. Thing-relations tend to bring us together physically and create connections. Designing friction requires thinking about how to increase our resistance. How can we engage our hands and whole bodies? How can these bodily engagements bring us together?</p>
+                
+                <h4><i>Non-positive</i></h4>
+                <p>Acknowledge the fulfilment in the non-positive. Today's digital technology creates a society that is in 'pursuit of happiness', in awe of positivity. (As a counterweight of the negativity it produces?) Smoothness doesn't injure. It doesn't produce resistance. It enforces the Like. These mechanisms feed our desire for attention and being seen. Designing friction cherishes the non-positive, the 'digital unseen', the disagreement, the doubt, the vulnerable, the complicated. This is what makes us human.</p>
+                <p>Perform your unpredictable self. Design environments and situations that trigger and facilitate unpredictable behaviour. De-automise. Step out of your pattern. Do something strange.</p>
+                
+				<p><i>Friction perceived as an obstacle might in fact be a possibility for connection.</i></p>
+				<p><img src="assets/strip2.gif" alt="GIF" width="600"></p>
+				<p><a href="https://lunamaurer.com/" target="_blank">Luna Maurer</a></p>
+				<p><a href="https://linktr.ee/roelwouters" target="_blank">Roel Wouters</a></p>
+				<p>Co-authored with Alexandra Barancová</p>
+				<p>		<a href="mailto:mail@designingfriction.com">mail@designingfriction.com</a></p>
+			
+				<p><i>Emoticons don't have wrinkles</i></p>
+				<p>Designing Friction is part of the zine series published by <a href="https://hatopress.net/products/no-44-emoticons-don-t-have-wrinkles-by-luna-maurer-and-roel-wouters" target="_blank">Hanto Press</a></p>
+				<p><img src="assets/Hato_cover-2.jpg" alt="Hato Press Cover" width="400"></p>
+
+			</div>
+
+            <div id="authors" class="content">
+                <h3>About the Authors</h3>
+				<p>Luna Maurer and Roel Wouters are an artist duo working across the worlds of design and digital culture. They co-founded <a href="https://studiomoniker.com/" target="_blank">Moniker</a>, a studio for interactive design, in 2012 – it ran until 2023, when they closed its doors to pursue projects individually, and collaboratively. Maurer and Wouters are also the co-authors of <a href="https://conditionaldesign.org/" target="_blank">Conditional Design</a>, a design method focused on processes rather than products. They are based in Amsterdam, the Netherlands.</p>
+
+			</div>
+        </div>
+    </div>
+
+    <script>
+        function openWindow() {
+            document.getElementById("popup").style.display = "none";
+            document.getElementById("mainWindow").style.display = "block";
+            showContent('welcome'); 
+            makeDraggable(document.getElementById("mainWindow"));
+        }
+
+        function closeWindow() {
+            document.getElementById("mainWindow").style.display = "none";
+        }
+
+		function showContent(id) {
+            let contents = document.querySelectorAll(".content");
+            let tabs = document.querySelectorAll(".tab");
+
+            contents.forEach(content => content.classList.remove("active"));
+            tabs.forEach(tab => tab.classList.remove("active"));
+
+            document.getElementById(id).classList.add("active");
+            document.querySelector(`[onclick="showContent('${id}')"]`).classList.add("active");
+        }
+
+        function makeDraggable(element) {
+            const titleBar = element.querySelector('.title-bar');
+            let isDragging = false;
+            let offsetX, offsetY;
+
+            titleBar.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                offsetX = e.clientX - element.getBoundingClientRect().left;
+                offsetY = e.clientY - element.getBoundingClientRect().top;
+                element.style.cursor = 'move';
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                
+                const x = e.clientX - offsetX;
+                const y = e.clientY - offsetY;
+                
+                const maxX = window.innerWidth - element.offsetWidth;
+                const maxY = window.innerHeight - element.offsetHeight;
+                
+                element.style.left = `${Math.min(Math.max(0, x), maxX)}px`;
+                element.style.top = `${Math.min(Math.max(0, y), maxY)}px`;
+            });
+
+            document.addEventListener('mouseup', () => {
+                isDragging = false;
+                element.style.cursor = 'default';
+            });
+        }
+    </script>
 </body>
 </html>
