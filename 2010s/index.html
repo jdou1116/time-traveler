@@ -13,6 +13,7 @@
       --mac-titlebar: linear-gradient(to bottom, #E8E8E8, #C0C0C0);
       --mac-window-bg: rgba(240, 240, 240, 0.9);
       --mac-active: rgba(0, 102, 204, 0.2);
+      --content-padding: 30px;
     }
 
     * {
@@ -30,6 +31,7 @@
       flex-direction: column;
       align-items: center;
       color: #333;
+      overflow: hidden;
     }
 
     .menu-bar {
@@ -41,6 +43,7 @@
       border-bottom: 1px solid #B0B0B0;
       font-size: 13px;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      z-index: 100;
     }
 
     .menu-left, .menu-right {
@@ -50,6 +53,15 @@
 
     .menu-item {
       cursor: default;
+    }
+
+    .main-container {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-grow: 1;
+      padding-bottom: 20px;
     }
 
     .window {
@@ -63,6 +75,9 @@
       overflow: hidden;
       backdrop-filter: blur(5px);
       min-height: 60vh;
+      max-height: 70vh;
+      display: flex;
+      flex-direction: column;
     }
 
     .title-bar {
@@ -71,6 +86,7 @@
       display: flex;
       align-items: center;
       border-bottom: 1px solid #B0B0B0;
+      flex-shrink: 0;
     }
 
     .window-controls {
@@ -100,14 +116,16 @@
     }
 
     .content-area {
-      padding: 20px;
-      height: 100%;
+      padding: var(--content-padding);
       overflow-y: auto;
+      flex-grow: 1;
     }
 
     .content-section {
       display: none;
       animation: fadeIn 0.3s ease;
+      max-width: 800px;
+      margin: 0 auto;
     }
 
     @keyframes fadeIn {
@@ -130,17 +148,34 @@
       color: var(--mac-blue);
       margin: 15px 0 10px;
       font-size: 18px;
+      text-align: center;
     }
 
     p {
       margin-bottom: 15px;
       line-height: 1.5;
+      padding: 0 10px;
+    }
+
+    a {
+      color: var(--mac-blue);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
     }
 
     .separator {
       height: 1px;
       background: linear-gradient(to right, transparent, #CCC, transparent);
-      margin: 20px 0;
+      margin: 20px var(--content-padding);
+    }
+
+    .centered-image {
+      display: block;
+      margin: 20px auto;
+     width: 300px;
     }
 
     .dock {
@@ -153,7 +188,11 @@
       border: 1px solid rgba(255, 255, 255, 0.3);
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 2px 5px rgba(0, 0, 0, 0.2);
       backdrop-filter: blur(10px);
-	  
+	  position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000; 
     }
 
     .dock-items {
@@ -211,6 +250,7 @@
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 20px;
       margin-top: 20px;
+      padding: 0 10px;
     }
 
     .grid-item {
@@ -233,7 +273,6 @@
       .dock {
         padding: 8px 12px;
         border-radius: 8px;
-		
       }
 
       .dock-items {
@@ -259,6 +298,10 @@
     }
 
     @media (max-width: 480px) {
+      :root {
+        --content-padding: 15px;
+      }
+      
       .menu-bar {
         font-size: 11px;
       }
@@ -276,6 +319,14 @@
         width: 32px;
         height: 32px;
       }
+      
+      h1 {
+        font-size: 20px;
+      }
+      
+      h2 {
+        font-size: 16px;
+      }
     }
   </style>
 </head>
@@ -289,192 +340,166 @@
       <span class="menu-item">View</span>
     </div>
     <div class="menu-right">
-      	<span class="menu-item">Tues Apr15</span>
-		<span class="menu-item">12:00 PM</span>
-
+      <span class="menu-item">Tues Apr15</span>
+      <span class="menu-item">12:00 PM</span>
     </div>
   </div>
 
-  <div class="window">
-    <div class="title-bar">
-      <div class="window-controls">
-        <div class="window-control close"></div>
-        <div class="window-control minimize"></div>
-        <div class="window-control maximize"></div>
+  <div class="main-container">
+    <div class="window">
+      <div class="title-bar">
+        <div class="window-controls">
+          <div class="window-control close"></div>
+          <div class="window-control minimize"></div>
+          <div class="window-control maximize"></div>
+        </div>
+        <div class="window-title">Designing Friction - Document</div>
       </div>
-      <div class="window-title">Designing Friction - Document</div>
-    </div>
-    <div class="content-area">
-      <div id="welcome-content" class="content-section active">
-        <h1>DESIGNING FRICTION</h1>
-        <p>A call for friction in digital culture</p>
-        
-        <div class="separator"></div>
-        
-        <p>As designers, entrepreneurs and architects of digital culture we feel the urge to refocus how we deal with our digital futures. Designing Friction is a proposal to change the way we think when producing or interacting with digital technology.</p>
-      </div>
+      <div class="content-area">
+        <div id="welcome-content" class="content-section active">
+          <h1>DESIGNING FRICTION</h1>
+          <h2>A call for friction in digital culture</h2>
+          <div class="separator"></div>
+          <p>As designers, entrepreneurs and architects of digital culture we feel the urge to refocus how we deal with our digital futures. Designing Friction is a proposal to change the way we think when producing or interacting with digital technology.</p>
+          <img src="assets/welcome.gif" alt="Welcome illustration" class="centered-image" >
+        </div>
 
-      <div id="intro-content" class="content-section">
-        <h1>INTRODUCTION</h1>
-        
-        <div class="separator"></div>
-        
-        <h2>What is friction?</h2>
-        <p>Friction is resistance. It derives from physical interaction between humans, and humans and things – its reach is holistic. All senses, elements and emotions play a role: sight, sound, smell, taste, touch, air, earth, temperature, agitation, passion, joy, sadness...</p>
-        
-        <div class="content-grid">
-          <div class="grid-item">
-            <h3>Physical Friction</h3>
-            <p>The more we move and act, the more friction we encounter. The more friction there is, the more we engage and care.</p>
-          </div>
-          <div class="grid-item">
-            <h3>Digital Friction</h3>
-            <p>Friction drives our engagement. Friction is an essential ingredient that makes up our humanness and sparks human connection.</p>
+        <div id="intro-content" class="content-section">
+          <h1>WHAT IS FRICTION?</h1>
+          <div class="separator"></div>
+          <p>Friction is resistance. It derives from physical interaction between humans, and humans and things – its reach is holistic. All senses, elements and emotions play a role: sight, sound, smell, taste, touch, air, earth, temperature, agitation, passion, joy, sadness... With movement comes friction. The more we move and act, the more friction we encounter. The more friction there is, the more we engage and care. Friction drives our engagement. Friction, in this context, is not synonymous with either anger or conflict, nor is it malfunctioning technology. Friction is an essential ingredient that makes up our humanness and sparks human connection. Friction is a lively, intrinsic experience.</p>
+          <center><img src="assets/question-mark-question.gif" alt="Question mark" width="200px"></center>
+        </div>
+
+        <div id="friction-content" class="content-section">
+          <h1>LOSS OF FRICTION</h1>
+          <div class="separator"></div>
+          <h2>Loss of Friction</h2>
+          <p>Digital technology has long pursued the goal of eliminating friction, striving for seamlessness. We now navigate a sea of frictionless experiences. (With the possible exception of two factor authentication.)☺</p>
+          
+          <h2><i>Function and form are detached</i></h2>
+          <p>Digital technology goes hand-in-hand with the loss of physical resistance. Philosopher Haroon Sheikh explains that digital technology turns our interactions with things into interactions with devices. A thing is split into its object, or form, and its function. A device is the same object for each function. It's your purse, your musical instrument and your letterbox, each of which now demands the same bodily action.</p>
+          
+          <h2><i>Removing physical human interaction</i></h2>
+          <p>Instead of using our whole hand to interact, we now often use our fingertips to swipe screens or interact with air. Each new app or innovation replaces a previously friction-laden human interaction process, David Byrne states. Transactions with machines are perceived to be smoother than interactions with fellow humans.</p>
+          
+          <h2><i>Convenience and immediacy</i></h2>
+          <p>Everything can be effortlessly and immediately accessed from behind our screens. We stay home due to home-delivery, dating apps, online classes and endless on-demand entertainment. We are facing 'death by convenience'. In such a reality, movement is trimmed down to a minimum.</p>
+          
+          <h2><i>Predictability</i></h2>
+          <p>In this reality, data is king. In creating convenience, all our actions are recorded and translated into data, rendering them readable and predictable. The better the data, the better the predictability. Unpredictability, human messiness and unforeseen actions are all friction, and counter this goal. Predictable futures can be controlled.</p>
+          
+          <h2><i>Loss of autonomy</i></h2>
+          <p>Keeping friction out maintains a fragile equilibrium. Enter AI — technology becomes omnipresent, and evolves from being a tool, to being a companion with humanlike appeal. We are on the verge of committing our emotions to AI, plunging into an emotional dependency. AI indulges us, consumes us. Its appeal gives us the comforts and conveniences we learn to seek. To get satisfaction from interaction with a model, you need to perform your predictable self. It becomes almost impossible to step out, to live frictionfully. Our autonomy is at stake.</p>
+          <p>Philosopher Miriam Rasch argues that complete removal of friction means standing still. A completely predictable future is no future, but a continuous present. In a world where even our deepest desires can be foreseen, where we have lost our autonomy, we long for what remains beyond the domain of data, algorithms and databases and AI.</p>
+        </div>
+
+        <div id="proposal-content" class="content-section">
+          <h1>PROPOSAL</h1>
+          <div class="separator"></div>
+          <p>A world headed for a frictionless reality begs the question: how can we create a desirable future with digital technology? How can we access, develop and relate to it? We like to see designing friction as a fundamental design principle when working with digital culture. Instead of following design ethics that strive to eliminate friction, we suggest to not only allow, but embrace friction. To facilitate it: design [products with] digital technology in a way that makes space for our humanness. Here friction is a core ingredient. Digital technology should create environments and situations in which we can truly connect with each other, as well as with the unknown, the uncontrolled, with all senses, all elements, all emotions. It should create situations that are not predicted, measured and calculated beforehand; situations that result from and amount to the present moment.</p>
+        </div>
+
+        <div id="ideas-content" class="content-section">
+          <h1>IDEAS ON DESIGNING FRICTION</h1>
+          <div class="separator"></div>
+          <div class="content-grid">
+            <div class="grid-item">
+              <h2>Discomfort</h2>
+              <p>Embrace uncomfortable situations. In uncomfortable environments we can discover the richness and breadth of friction. Uncomfortable situations help you to feel structures you are not adjusted to, you can learn and discover. With friction we get immersed, we get creative, we get alive. Discomfort allows us to experience boundaries both physically and mentally (these are necessary and productive). Designing friction is exploring boundaries.</p>
+            </div>
+            <div class="grid-item">
+              <h2>Time Delay</h2>
+              <p>Friction makes things slower and that is okay! The fastest response might not be the best one to design for. Instant gratification is what digital technology currently optimizes for. This results in the loss of desire, waiting and boredom. Avoiding boredom makes us pick up a device as soon as we have nothing to do. Being bored lets you start new fascinations. Boredom gets us into productive flow. When friction acts to slow things down it allows us to step into the now. Designing friction is fuelling longing and desire; it allows boredom and allows for a slower pace.</p>
+            </div>
+            <div class="grid-item">
+              <h2>Engage the Body</h2>
+              <p>When interacting with screens we lack resistance. Swiping screens makes our world more superficial. Human life gains depth when having thing-relations. Thing-relations tend to bring us together physically and create connections. Designing friction requires thinking about how to increase our resistance. How can we engage our hands and whole bodies? How can these bodily engagements bring us together?</p>
+            </div>
+            <div class="grid-item">
+              <h2>Non-positive</h2>
+              <p>Acknowledge the fulfilment in the non-positive. Today's digital technology creates a society that is in 'pursuit of happiness', in awe of positivity. (As a counterweight of the negativity it produces?) Smoothness doesn't injure. It doesn't produce resistance. It enforces the Like. These mechanisms feed our desire for attention and being seen. Designing friction cherishes the non-positive, the 'digital unseen', the disagreement, the doubt, the vulnerable, the complicated. This is what makes us human.</p>
+              <p>Perform your unpredictable self. Design environments and situations that trigger and facilitate unpredictable behaviour. De-automise. Step out of your pattern. Do something strange.</p>
+            </div>
+            <div class="grid-item">
+              <p>Friction perceived as an obstacle might in fact be a possibility for connection.</p>
+              <img src="assets/strip2.gif" alt="Connection illustration" class="centered-image">
+              <p><a href="https://lunamaurer.com/" target="_blank">Luna Maurer</a></p>
+              <p><a href="https://linktr.ee/roelwouters" target="_blank">Roel Wouters</a></p>
+              <p>Co-authored with Alexandra Barancová</p>
+              <p><a href="mailto:mail@designingfriction.com">mail@designingfriction.com</a></p>
+              <p><i>Emoticons don't have wrinkles</i></p>
+            </div>
+            <div class="grid-item">
+              <p>Designing Friction is part of the zine series published by <a href="https://hatopress.net/products/no-44-emoticons-don-t-have-wrinkles-by-luna-maurer-and-roel-wouters" target="_blank">Hato Press</a></p>
+              <img src="assets/Hato_cover-2.jpg" alt="Hato Press cover" class="centered-image">
+            </div>
           </div>
         </div>
-      </div>
 
-      <div id="friction-content" class="content-section">
-        <h1>LOSS OF FRICTION</h1>
-        
-        <div class="separator"></div>
-        
-        <p>Digital technology has long pursued the goal of eliminating friction, striving for seamlessness. We now navigate a sea of frictionless experiences.</p>
-        
-        <h2>Function and form are detached</h2>
-        <p>Digital technology turns our interactions with things into interactions with devices. A thing is split into its object, or form, and its function.</p>
-        
-        <h2>Removing physical human interaction</h2>
-        <p>Instead of using our whole hand to interact, we now often use our fingertips to swipe screens or interact with air.</p>
-      </div>
-
-      <div id="proposal-content" class="content-section">
-        <h1>PROPOSAL</h1>
-        
-        <div class="separator"></div>
-        
-        <p>A world headed for a frictionless reality begs the question: how can we create a desirable future with digital technology?</p>
-        
-        <div class="content-grid">
-          <div class="grid-item">
-            <h2>Design Principle</h2>
-            <p>We suggest to not only allow, but embrace friction as a fundamental design principle when working with digital culture.</p>
-          </div>
-          <div class="grid-item">
-            <h2>Human Connection</h2>
-            <p>Digital technology should create environments and situations in which we can truly connect with each other.</p>
-          </div>
-        </div>
-      </div>
-
-      <div id="ideas-content" class="content-section">
-        <h1>IDEAS</h1>
-        
-        <div class="separator"></div>
-        
-        <div class="content-grid">
-          <div class="grid-item">
-            <h2>Discomfort</h2>
-			<p>aaa</p>
-		</div>
-          <div class="grid-item">
-            <h2>Time Delay</h2>
-			<p>aaa</p>          </div>
-          <div class="grid-item">
-            <h2>Engage the Body</h2>
-			<p>aaa</p>          </div>
-          <div class="grid-item">
-            <h2>Non-positive</h2>
-			<p>aaa</p>
-		</div>
-        </div>
-      </div>
-
-      <div id="author-content" class="content-section">
-        <h1>ABOUT THE AUTHORS</h1>
-        
-        <div class="separator"></div>
-        
-        <p>Luna Maurer and Roel Wouters are an artist duo working across the worlds of design and digital culture. They co-founded Moniker, a studio for interactive design, in 2012.</p>
-        
-        <div class="content-grid">
-          <div class="grid-item">
-            <h2>Collaborative Works</h2>
-            <p>Maurer and Wouters are also the co-authors of Conditional Design, a design method focused on processes rather than products.</p>
-          </div>
-          <div class="grid-item">
-            <h2>Location</h2>
-            <p>They are based in Amsterdam, the Netherlands.</p>
-          </div>
+        <div id="author-content" class="content-section">
+          <h1>ABOUT THE AUTHORS</h1>
+          <div class="separator"></div>
+          <p>Luna Maurer and Roel Wouters are an artist duo working across the worlds of design and digital culture. They co-founded <a href="https://studiomoniker.com/" target="_blank">Moniker</a>, a studio for interactive design, in 2012 – it ran until 2023, when they closed its doors to pursue projects individually, and collaboratively. Maurer and Wouters are also the co-authors of <a href="https://conditionaldesign.org/" target="_blank">Conditional Design</a>, a design method focused on processes rather than products. They are based in Amsterdam, the Netherlands.</p>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="dock">
-    <div class="dock-items">
-      <div class="dock-item active" data-target="welcome-content">
-        <img src="assets/author.png" alt="Welcome" class="dock-icon">
-        <span class="dock-label">Welcome</span>
-      </div>
-      <div class="dock-item" data-target="intro-content">
-        <img src="assets/idea.png" alt="Intro" class="dock-icon">
-        <span class="dock-label">Intro</span>
-      </div>
-      <div class="dock-item" data-target="friction-content">
-        <img src="assets/idea.png" alt="Friction" class="dock-icon">
-        <span class="dock-label">Friction</span>
-      </div>
-      <div class="dock-item" data-target="proposal-content">
-        <img src="assets/author.png" alt="Proposal" class="dock-icon">
-        <span class="dock-label">Proposal</span>
-      </div>
-      <div class="dock-item" data-target="ideas-content">
-        <img src="assets/idea.png" alt="Ideas" class="dock-icon">
-        <span class="dock-label">Ideas</span>
-      </div>
-      <div class="dock-item" data-target="author-content">
-        <img src="assets/author.png" alt="Author" class="dock-icon">
-        <span class="dock-label">Author</span>
+    <div class="dock">
+      <div class="dock-items">
+        <div class="dock-item active" data-target="welcome-content">
+          <img src="assets/Folder-1.png" alt="Welcome" class="dock-icon">
+          <span class="dock-label">Intro</span>
+        </div>
+        <div class="dock-item" data-target="intro-content">
+          <img src="assets/Folder-2.png" alt="What is Friction" class="dock-icon">
+          <span class="dock-label">Friction</span>
+        </div>
+        <div class="dock-item" data-target="friction-content">
+          <img src="assets/Folder-3.png" alt="Loss of Friction" class="dock-icon">
+          <span class="dock-label">Loss</span>
+        </div>
+        <div class="dock-item" data-target="proposal-content">
+          <img src="assets/Folder-6.png" alt="Proposal" class="dock-icon">
+          <span class="dock-label">Proposal</span>
+        </div>
+        <div class="dock-item" data-target="ideas-content">
+          <img src="assets/Folder-4.png" alt="Ideas" class="dock-icon">
+          <span class="dock-label">Ideas</span>
+        </div>
+        <div class="dock-item" data-target="author-content">
+          <img src="assets/Folder-5.png" alt="Authors" class="dock-icon">
+          <span class="dock-label">Authors</span>
+        </div>
       </div>
     </div>
   </div>
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
+		//https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener/
       const dockItems = document.querySelectorAll('.dock-item');
       const contentSections = document.querySelectorAll('.content-section');
+	  //https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll/
+      
+      function activateSection(targetId) {
+        dockItems.forEach(di => di.classList.remove('active'));
+		//https://developer.mozilla.org/en-US/docs/Web/API/Element/remove/
+        contentSections.forEach(section => {
+		//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach/
+          section.classList.remove('active');
+          if (section.id === targetId) {
+            section.classList.add('active');
+            document.querySelector(`[data-target="${targetId}"]`).classList.add('active');
+          }
+        });
+      }
       
       dockItems.forEach(item => {
         item.addEventListener('click', function() {
-          const targetId = this.getAttribute('data-target');
-          
-          dockItems.forEach(di => di.classList.remove('active'));
-          this.classList.add('active');
-          
-          contentSections.forEach(section => {
-            section.classList.remove('active');
-            if (section.id === targetId) {
-              section.classList.add('active');
-            }
-          });
+          activateSection(this.getAttribute('data-target'));
+		  //https://developer.mozilla.org/en-US/docs/Web/API/Element/getAttribute/
         });
-      });
-      
-      const closeBtn = document.querySelector('.close');
-      const minimizeBtn = document.querySelector('.minimize');
-      const maximizeBtn = document.querySelector('.maximize');
-      
-      closeBtn.addEventListener('click', () => {
-        alert('Close window - This would close the window in a real app');
-      });
-      
-      minimizeBtn.addEventListener('click', () => {
-        alert('Minimize window - This would minimize the window in a real app');
-      });
-      
-      maximizeBtn.addEventListener('click', () => {
-        alert('Maximize window - This would maximize the window in a real app');
       });
     });
   </script>
