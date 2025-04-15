@@ -291,11 +291,15 @@
     </div>
 
     <script>
+        //https://developer.mozilla.org/en-US/docs/Web/API/Clients/openWindow/
         function openWindow() {
             document.getElementById("popup").style.display = "none";
             document.getElementById("mainWindow").style.display = "block";
             showContent('welcome'); 
+            //https://docs.aveva.com/bundle/sp-appserver/page/507692.html/
             makeDraggable(document.getElementById("mainWindow"));
+            //https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementById/
+            //https://www.framer.com/developers/reference/plugins-make-draggable/
         }
 
         function closeWindow() {
@@ -305,9 +309,11 @@
 		function showContent(id) {
             let contents = document.querySelectorAll(".content");
             let tabs = document.querySelectorAll(".tab");
+            //https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll/
 
             contents.forEach(content => content.classList.remove("active"));
             tabs.forEach(tab => tab.classList.remove("active"));
+            //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach/
 
             document.getElementById(id).classList.add("active");
             document.querySelector(`[onclick="showContent('${id}')"]`).classList.add("active");
@@ -327,6 +333,7 @@
 
             document.addEventListener('mousemove', (e) => {
                 if (!isDragging) return;
+            //https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener/
                 
                 const x = e.clientX - offsetX;
                 const y = e.clientY - offsetY;
